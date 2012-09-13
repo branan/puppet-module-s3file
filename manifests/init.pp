@@ -1,6 +1,7 @@
 define s3file (
   $source,
   $ensure = 'latest',
+  $s3_domain = 's3.amazonaws.com',
 )
 {
   $valid_ensures = [ 'absent', 'present', 'latest' ]
@@ -12,7 +13,7 @@ define s3file (
       ensure => absent
     }
   } else {
-    $real_source = "https://s3.amazonaws.com/${source}"
+    $real_source = "https://${s3_domain}/${source}"
 
     if $ensure == 'latest' {
       $unless = "[ -e ${name} ] && curl -I ${real_source} | grep ETag | grep `md5sum ${name} | cut -c1-32`"
