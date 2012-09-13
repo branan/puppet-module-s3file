@@ -1,0 +1,8 @@
+name    'branan-s3file'
+version '0.5.0'
+source  'https://github.com/branan/puppet-s3file'
+author  'Branan Purvine-Riley'
+license 'Apache License 2.0'
+summary 'S3 File Synchronization'
+description 'Keep a file up-to-date with an S3 source'
+project_page 'https://github.com/branan/puppet-s3file'
