@@ -3,6 +3,8 @@
 # This clas installs cURL and ensures it is installed before
 # any S3file resources are evaluated.
 class s3file::curl () {
-  package { 'curl':
-  } -> S3file<| |>
+  if !defined(Package['curl']) {
+    package { 'curl':
+    } -> S3file<| |>
+  }
 }
