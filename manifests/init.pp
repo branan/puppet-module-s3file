@@ -14,8 +14,8 @@
 # Sample Usage:
 #
 #  s3file { '/opt/minecraft/minecraft_server.jar':
-#    source => ‘MinecraftDownload/launcher/minecraft_server.jar’,
-#    ensure => ‘latest’,
+#    source => 'MinecraftDownload/launcher/minecraft_server.jar',
+#    ensure => 'latest',
 #  }
 #
 define s3file (
