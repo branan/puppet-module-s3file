@@ -1,5 +1,5 @@
 name    'branan-s3file'
-version '1.0.0'
+version '1.0.1'
 source  'https://github.com/branan/puppet-module-s3file'
 author  'Branan Purvine-Riley'
 license 'Apache License 2.0'
