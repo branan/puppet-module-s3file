@@ -1,8 +1,8 @@
-# Class: s3file::curl
+# Class: s3::curl
 #
 # This clas installs cURL and ensures it is installed before
-# any S3file resources are evaluated.
-class s3file::curl () {
+# any S3::File resources are evaluated.
+class s3::curl () {
   package { 'curl':
-  } -> S3file<| |>
+  } -> S3::File<| |>
 }

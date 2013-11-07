@@ -1,4 +1,4 @@
-# Definition: s3file
+# Definition: s3::file
 #
 # This definition fetches and keeps synchonized a file stored in S3
 #
@@ -13,12 +13,12 @@
 #
 # Sample Usage:
 #
-#  s3file { '/opt/minecraft/minecraft_server.jar':
+#  s3::file { '/opt/minecraft/minecraft_server.jar':
 #    source => 'MinecraftDownload/launcher/minecraft_server.jar',
 #    ensure => 'latest',
 #  }
 #
-define s3file (
+define s3::file (
   $source,
   $ensure = 'latest',
   $s3_domain = 's3.amazonaws.com',
