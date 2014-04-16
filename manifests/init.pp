@@ -30,6 +30,12 @@ define s3file (
   $valid_ensures = [ 'absent', 'present', 'latest' ]
   validate_re($ensure, $valid_ensures)
 
+  file { $name:
+    owner => $owner,
+    group => $group,
+    mode  => $mode,
+  }
+
   if $ensure == 'absent' {
     # We use a puppet resource here to force the file to absent state
     file { $name:
@@ -37,12 +43,6 @@ define s3file (
     }
   } else {
     $real_source = "https://${s3_domain}/${source}"
-
-  file { $name:
-    owner => $owner,
-    group => $group,
-    mode  => $mode,
-  }
 
     if $ensure == 'latest' {
       $unless = "[ -e ${name} ] && curl -I ${real_source} | grep ETag | grep `md5sum ${name} | cut -c1-32`"
