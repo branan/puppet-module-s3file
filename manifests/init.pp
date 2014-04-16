@@ -19,6 +19,9 @@
 #  }
 #
 define s3file (
+  $owner,
+  $group,
+  $mode,
   $source,
   $ensure = 'latest',
   $s3_domain = 's3.amazonaws.com',
@@ -30,10 +33,16 @@ define s3file (
   if $ensure == 'absent' {
     # We use a puppet resource here to force the file to absent state
     file { $name:
-      ensure => absent
+      ensure => absent,
     }
   } else {
     $real_source = "https://${s3_domain}/${source}"
+
+  file { $name:
+    owner => $owner,
+    group => $group,
+    mode  => $mode,
+  }
 
     if $ensure == 'latest' {
       $unless = "[ -e ${name} ] && curl -I ${real_source} | grep ETag | grep `md5sum ${name} | cut -c1-32`"
