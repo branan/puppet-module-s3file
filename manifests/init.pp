@@ -19,6 +19,9 @@
 #  }
 #
 define s3file (
+  $owner,
+  $group,
+  $mode,
   $source,
   $ensure = 'latest',
   $s3_domain = 's3.amazonaws.com',
@@ -27,10 +30,16 @@ define s3file (
   $valid_ensures = [ 'absent', 'present', 'latest' ]
   validate_re($ensure, $valid_ensures)
 
+  file { $name:
+    owner => $owner,
+    group => $group,
+    mode  => $mode,
+  }
+
   if $ensure == 'absent' {
     # We use a puppet resource here to force the file to absent state
     file { $name:
-      ensure => absent
+      ensure => absent,
     }
   } else {
     $real_source = "https://${s3_domain}/${source}"
