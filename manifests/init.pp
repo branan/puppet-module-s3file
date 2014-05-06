@@ -55,7 +55,7 @@ define s3file (
       # this makes the
       $date = inline_template("<%= Time.now.to_s %>")
       $payload = inline_template("GET\n\n\n<%=@date%>\n/<%= @source -%>")
-      $signature = inline_template("<% require 'base64' -%><% require 'openssl' -%><%= Base64.encode64( OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), @s3_secret_key, @payload.encode(Encoding::UTF_8) ) ).strip.to_s-%>")
+      $signature = inline_template("<% require 'base64' -%><% require 'openssl' -%><% require 'iconv' -%><%= Base64.encode64( OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), @s3_secret_key, Iconv.conv('UTF-8//IGNORE', 'UTF-8', @payload) ) ).strip.to_s-%>")
       $header = inline_template("Authorization: AWS <%=@s3_access_key-%>:<%=@signature-%>")
       $curl_command = "curl -vL -o ${name} -X GET -H \"Date: ${date}\" -H \"${header}\" \"${real_source}\""
     }
