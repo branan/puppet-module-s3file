@@ -19,6 +19,9 @@
 #  }
 #
 define s3file (
+  $owner,
+  $group,
+  $mode,
   $source,
   $ensure = 'latest',
   $s3_domain = 's3.amazonaws.com',
@@ -30,9 +33,15 @@ define s3file (
   if $ensure == 'absent' {
     # We use a puppet resource here to force the file to absent state
     file { $name:
-      ensure => absent
+      ensure => absent,
     }
   } else {
+    file { $name:
+      owner => $owner,
+      group => $group,
+      mode  => $mode,
+    }
+    
     $real_source = "https://${s3_domain}/${source}"
 
     if $ensure == 'latest' {
@@ -44,7 +53,8 @@ define s3file (
     exec { "fetch ${name}":
       path    => ['/bin', '/usr/bin', 'sbin', '/usr/sbin'],
       command => "curl -L -o ${name} ${real_source}",
-      unless  => $unless
+      require => File[$name],
+      unless  => $unless,
     }
   }
 }
