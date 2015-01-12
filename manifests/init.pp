@@ -53,7 +53,7 @@ define s3file (
     exec { "fetch ${name}":
       path    => ['/bin', '/usr/bin', 'sbin', '/usr/sbin'],
       command => "curl -L -o ${name} ${real_source}",
-      require => $name,
+      require => File[$name],
       unless  => $unless,
     }
   }
