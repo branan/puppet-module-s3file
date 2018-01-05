@@ -7,7 +7,7 @@
 # - $source: The bucket and filename on S3
 # - $ensure: 'present', 'absent', or 'latest': as the core File resource
 # - $s3_domain: s3 server to fetch the file from
-# - vpc_endpoint: 'true' or 'false'
+# - $vpc_endpoint: 'true' or 'false'
 #
 # Requires:
 # - cURL
@@ -23,7 +23,7 @@ define s3file (
   $source,
   $ensure = 'latest',
   $s3_domain = 's3.amazonaws.com',
-  $vpc_endpoint = 'false',
+  $vpc_endpoint = false,
 )
 {
   $valid_ensures = [ 'absent', 'present', 'latest' ]
@@ -35,7 +35,7 @@ define s3file (
       ensure => absent
     }
   } else {
-    if $vpc_endpoint == 'true' {
+    if $vpc_endpoint == true {
       $bucket=$source.split('/', 2).values.first
       $file=$source.split('/', 2).values.second
       $real_source = "https://${bucket}.${s3_domain}/${file}"
