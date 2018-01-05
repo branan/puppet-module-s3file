@@ -23,6 +23,7 @@ define s3file (
   $source,
   $ensure = 'latest',
   $s3_domain = 's3.amazonaws.com',
+  $vpc_endpoint = 'false',
 )
 {
   $valid_ensures = [ 'absent', 'present', 'latest' ]
