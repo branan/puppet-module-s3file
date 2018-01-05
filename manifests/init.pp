@@ -36,8 +36,9 @@ define s3file (
     }
   } else {
     if $vpc_endpoint == true {
-      $bucket=$source.split('/', 2).values.first
-      $file=$source.split('/', 2).values.second
+      $bucket_file = split($source, '/')
+      $bucket = $bucket_file[0]
+      $file = $bucket_file[1]
       $real_source = "https://${bucket}.${s3_domain}/${file}"
     } else {
       $real_source = "https://${s3_domain}/${source}"
