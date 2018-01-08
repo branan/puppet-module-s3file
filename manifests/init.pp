@@ -7,7 +7,7 @@
 # - $source: The bucket and filename on S3
 # - $ensure: 'present', 'absent', or 'latest': as the core File resource
 # - $s3_domain: s3 server to fetch the file from
-# - $vpc_endpoint: 'true' or 'false'
+# - $vpc_endpoint: true or false
 #
 # Requires:
 # - cURL
