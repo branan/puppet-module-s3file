@@ -4,6 +4,8 @@ Example Usage:
 
     include 's3file::curl'
     s3file { '/path/to/destination/file':
-      source => 'MyBucket/the/file',
-      ensure => 'latest',
+      source       => 'MyBucket/the/file',
+      ensure       => 'latest',
+      vpc_endpoint => 'true', # Default is false
     }
+    
